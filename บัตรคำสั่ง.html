@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เกมเรียงลำดับบัตรคำสั่ง - เที่ยวพิพิธภัณฑ์</title>
+    <!-- นำเข้า Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f0fdf4;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-8 px-4 flex flex-col items-center">
+
+    <div class="max-w-4xl w-full bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-emerald-100">
+        <!-- ส่วนหัว -->
+        <div class="text-center mb-8">
+            <h1 class="text-2xl md:text-3xl font-bold text-emerald-700 mb-2">🧩 เกมเรียงลำดับบัตรคำสั่ง (วิทยาการคำนวณ)</h1>
+            <p class="text-gray-600 font-medium">ให้นักเรียนช่วยกันเรียงลำดับขั้นตอนการไปเที่ยวพิพิธภัณฑ์ให้ถูกต้องตามเงื่อนไขนะคร้าบ!</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- ฝั่งซ้าย: บัตรคำสั่งเริ่มต้น (สุ่มตำแหน่ง) -->
+            <div>
+                <h2 class="text-lg font-bold text-amber-600 mb-3 flex items-center gap-2">
+                    <span>📋 บัตรคำสั่ง (คลิกหรือลากเพื่อวาง)</span>
+                </h2>
+                <div id="source-container" class="flex flex-col gap-3 min-h-[300px] p-4 bg-amber-50 rounded-xl border-2 border-dashed border-amber-200">
+                    <!-- บัตรคำสั่งจะถูกสุ่มสร้างที่นี่ -->
+                </div>
+            </div>
+
+            <!-- ฝั่งขวา: ช่องวางคำตอบ -->
+            <div>
+                <h2 class="text-lg font-bold text-emerald-600 mb-3 flex items-center gap-2">
+                    <span>📍 ลำดับขั้นตอนที่ถูกต้อง</span>
+                </h2>
+                <div id="target-container" class="flex flex-col gap-3 p-2 bg-emerald-50 rounded-xl border-2 border-emerald-200">
+                    <!-- ช่องวาง 6 ช่อง -->
+                    <div class="slot flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 min-h-[64px]" data-slot="1">
+                        <span class="font-bold text-gray-400 w-6">1.</span>
+                        <div class="slot-content flex-1 min-h-[40px] flex items-center justify-center text-dashed text-gray-300 border border-dashed border-gray-200 rounded text-sm">เลือกบัตรคำสั่งมาวางที่นี่</div>
+                    </div>
+                    <div class="slot flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 min-h-[64px]" data-slot="2">
+                        <span class="font-bold text-gray-400 w-6">2.</span>
+                        <div class="slot-content flex-1 min-h-[40px] flex items-center justify-center text-dashed text-gray-300 border border-dashed border-gray-200 rounded text-sm">เลือกบัตรคำสั่งมาวางที่นี่</div>
+                    </div>
+                    <div class="slot flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 min-h-[64px]" data-slot="3">
+                        <span class="font-bold text-gray-400 w-6">3.</span>
+                        <div class="slot-content flex-1 min-h-[40px] flex items-center justify-center text-dashed text-gray-300 border border-dashed border-gray-200 rounded text-sm">เลือกบัตรคำสั่งมาวางที่นี่</div>
+                    </div>
+                    <div class="slot flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 min-h-[64px]" data-slot="4">
+                        <span class="font-bold text-gray-400 w-6">4.</span>
+                        <div class="slot-content flex-1 min-h-[40px] flex items-center justify-center text-dashed text-gray-300 border border-dashed border-gray-200 rounded text-sm">เลือกบัตรคำสั่งมาวางที่นี่</div>
+                    </div>
+                    <div class="slot flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 min-h-[64px]" data-slot="5">
+                        <span class="font-bold text-gray-400 w-6">5.</span>
+                        <div class="slot-content flex-1 min-h-[40px] flex items-center justify-center text-dashed text-gray-300 border border-dashed border-gray-200 rounded text-sm">เลือกบัตรคำสั่งมาวางที่นี่</div>
+                    </div>
+                    <div class="slot flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 min-h-[64px]" data-slot="6">
+                        <span class="font-bold text-gray-400 w-6">6.</span>
+                        <div class="slot-content flex-1 min-h-[40px] flex items-center justify-center text-dashed text-gray-300 border border-dashed border-gray-200 rounded text-sm">เลือกบัตรคำสั่งมาวางที่นี่</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ปุ่มควบคุมและแสดงผล -->
+        <div class="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div id="result-message" class="text-lg font-bold text-center sm:text-left"></div>
+            <div class="flex gap-3">
+                <button onclick="resetGame()" class="px-5 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-300 transition-colors cursor-pointer">🔄 เริ่มใหม่</button>
+                <button onclick="checkAnswer()" class="px-6 py-2.5 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 shadow-md hover:shadow-lg transition-all cursor-pointer">✅ ตรวจคำตอบ</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ข้อมูลบัตรคำสั่งและลำดับที่ถูกต้องตามคีย์เวิร์ดเฉลยของคุณครู
+        const correctOrder = [
+            { id: 1, text: "เดินทางไปพิพิธภัณฑ์ของเล่น", color: "from-sky-500 to-blue-600" },
+            { id: 2, text: "ไปจุดบริการขายตั๋วเข้าชม", color: "from-sky-500 to-blue-600" },
+            { id: 3, text: "ตรวจสอบสถานะผู้เข้าชม", color: "from-purple-500 to-indigo-600" },
+            { id: 4, text: "🔸 หากมีบัตรนักเรียน ให้เข้าชมฟรี", color: "from-amber-500 to-orange-600" },
+            { id: 5, text: "🔸 หากไม่มีบัตรนักเรียน ให้เสียค่าเข้าชม 80 บาท", color: "from-amber-500 to-orange-600" },
+            { id: 6, text: "เข้าชมพิพิธภัณฑ์", color: "from-teal-500 to-emerald-600" }
+        ];
+
+        // ฟังก์ชันสลับตำแหน่งข้อมูล (Shuffle)
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        // ฟังก์ชันสร้างหรือรีเซ็ตเกม
+        function initGame() {
+            const sourceContainer = document.getElementById('source-container');
+            sourceContainer.innerHTML = '';
+            
+            document.querySelectorAll('.slot-content').forEach(slot => {
+                slot.innerHTML = 'เลือกบัตรคำสั่งมาวางที่นี่';
+                slot.className = "slot-content flex-1 min-h-[40px] flex items-center justify-center text-dashed text-gray-300 border border-dashed border-gray-200 rounded text-sm";
+                slot.removeAttribute('data-card-id');
+            });
+
+            document.getElementById('result-message').innerHTML = '';
+
+            // สุ่มตำแหน่งการ์ด
+            const shuffledCards = shuffle([...correctOrder]);
+
+            shuffledCards.forEach(card => {
+                const cardEl = document.createElement('div');
+                cardEl.className = `card-shadow p-3 bg-gradient-to-r ${card.color} text-white rounded-xl font-medium cursor-grab active:cursor-grabbing select-none transition-transform hover:scale-[1.02] flex items-center justify-between text-sm md:text-base`;
+                cardEl.draggable = true;
+                cardEl.id = `card-${card.id}`;
+                cardEl.setAttribute('data-id', card.id);
+                cardEl.innerHTML = `<span>${card.text}</span>`;
+
+                // การลากวาง (Drag & Drop)
+                cardEl.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', card.id);
+                    cardEl.classList.add('opacity-50');
+                });
+                cardEl.addEventListener('dragend', () => {
+                    cardEl.classList.remove('opacity-50');
+                });
+
+                // การคลิกเพื่อวาง (Mobile & Tablet friendly)
+                cardEl.addEventListener('click', () => {
+                    const emptySlot = Array.from(document.querySelectorAll('.slot-content')).find(slot => !slot.hasAttribute('data-card-id'));
+                    if (emptySlot) {
+                        moveCardToSlot(cardEl, emptySlot);
+                    }
+                });
+
+                sourceContainer.appendChild(cardEl);
+            });
+        }
+
+        function moveCardToSlot(cardEl, slotContentEl) {
+            const cardId = cardEl.getAttribute('data-id');
+            const cardText = cardEl.querySelector('span').innerText;
+            const originalColor = correctOrder.find(c => c.id == cardId).color;
+
+            slotContentEl.innerHTML = `
+                <div class="w-full p-2.5 bg-gradient-to-r ${originalColor} text-white rounded-lg flex justify-between items-center text-sm font-medium">
+                    <span>${cardText}</span>
+                    <button onclick="removeCardFromSlot(event, '${cardId}')" class="ml-2 text-white bg-black/20 hover:bg-black/40 px-2 py-1 rounded text-xs transition-colors cursor-pointer">✕ เอาออก</button>
+                </div>
+            `;
+            slotContentEl.className = "slot-content flex-1 min-h-[40px] flex items-center justify-center rounded";
+            slotContentEl.setAttribute('data-card-id', cardId);
+            cardEl.classList.add('hidden');
+        }
+
+        window.removeCardFromSlot = function(event, cardId) {
+            event.stopPropagation();
+            const slotContentEl = event.target.closest('.slot-content');
+            
+            slotContentEl.innerHTML = 'เลือกบัตรคำสั่งมาวางที่นี่';
+            slotContentEl.className = "slot-content flex-1 min-h-[40px] flex items-center justify-center text-dashed text-gray-300 border border-dashed border-gray-200 rounded text-sm";
+            slotContentEl.removeAttribute('data-card-id');
+
+            const originalCard = document.getElementById(`card-${cardId}`);
+            if (originalCard) {
+                originalCard.classList.remove('hidden');
+            }
+        }
+
+        // เปิดให้ Drop ในช่องได้
+        document.querySelectorAll('.slot-content').forEach(slotContent => {
+            slotContent.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                if (!slotContent.hasAttribute('data-card-id')) {
+                    slotContent.classList.add('bg-emerald-100', 'border-emerald-400');
+                }
+            });
+
+            slotContent.addEventListener('dragleave', () => {
+                slotContent.classList.remove('bg-emerald-100', 'border-emerald-400');
+            });
+
+            slotContent.addEventListener('drop', (e) => {
+                e.preventDefault();
+                slotContent.classList.remove('bg-emerald-100', 'border-emerald-400');
+                if (slotContent.hasAttribute('data-card-id')) return;
+
+                const cardId = e.dataTransfer.getData('text/plain');
+                const cardEl = document.getElementById(`card-${cardId}`);
+                if (cardEl) {
+                    moveCardToSlot(cardEl, slotContent);
+                }
+            });
+        });
+
+        // ตรวจสอบคำตอบตามโครงสร้างที่คุณครูเฉลยมา
+        window.checkAnswer = function() {
+            const slots = document.querySelectorAll('.slot');
+            let allCorrect = true;
+            let totalPlaced = 0;
+
+            slots.forEach((slot, index) => {
+                const slotContent = slot.querySelector('.slot-content');
+                const placedCardId = slotContent.getAttribute('data-card-id');
+                const expectedId = index + 1;
+
+                if (placedCardId) {
+                    totalPlaced++;
+                    if (parseInt(placedCardId) === expectedId) {
+                        slot.className = "slot flex items-center gap-3 p-3 bg-emerald-50 rounded-lg border-2 border-emerald-500 min-h-[64px]";
+                    } else {
+                        slot.className = "slot flex items-center gap-3 p-3 bg-rose-50 rounded-lg border-2 border-rose-500 min-h-[64px]";
+                        allCorrect = false;
+                    }
+                } else {
+                    slot.className = "slot flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 min-h-[64px]";
+                    allCorrect = false;
+                }
+            });
+
+            const resultMsg = document.getElementById('result-message');
+            if (totalPlaced < 6) {
+                resultMsg.innerHTML = "⚠️ ยังวางบัตรคำสั่งไม่ครบทุกช่องเลย ลองตรวจดูอีกทีนะจ๊ะ";
+                resultMsg.className = "text-lg font-bold text-amber-600";
+            } else if (allCorrect) {
+                resultMsg.innerHTML = "🎉 ยอดเยี่ยมมาก! คุณครูให้คะแนนเต็ม 10 เลย เรียงลำดับอัลกอริทึมได้ถูกต้องทั้งหมดครับ!";
+                resultMsg.className = "text-lg font-bold text-emerald-600 animate-bounce";
+            } else {
+                resultMsg.innerHTML = "❌ ลำดับขั้นตอนยังไม่ถูกต้องนะจ๊ะ ลองสลับตำแหน่งดูใหม่อีกครั้ง!";
+                resultMsg.className = "text-lg font-bold text-rose-600";
+            }
+        }
+
+        window.resetGame = function() {
+            document.querySelectorAll('.slot').forEach(slot => {
+                slot.className = "slot flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 min-h-[64px]";
+            });
+            initGame();
+        }
+
+        // เริ่มต้นเกมเมื่อโหลดหน้าเว็บ
+        initGame();
+    </script>
+</body>
+</html>
